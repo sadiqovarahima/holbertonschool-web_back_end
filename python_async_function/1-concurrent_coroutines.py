@@ -11,7 +11,14 @@ async def wait_n(n: int, max_delay: int) -> List[float]:
     """
     wait_n function
     """
+    # Bütün coroutine-ləri eyni vaxtda işə salmaq üçün tapşırıqlar siyahısı yaradırıq
+    tasks = [wait_random(max_delay) for _ in range(n)]
+    
     list_float: List[float] = []
-    for i in range(n):
-        list_float.append(await wait_random(max_delay))
-    return sorted(list_float)
+    
+    # asyncio.as_completed tapşırıqları bitmə sırasına görə (concurrency) qaytarır
+    for task in asyncio.as_completed(tasks):
+        delay = await task
+        list_float.append(delay)
+        
+    return list_float
