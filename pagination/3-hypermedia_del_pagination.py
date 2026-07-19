@@ -37,9 +37,11 @@ class Server:
             }
         return self.__indexed_dataset
 
-    def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict[str, Any]:
+    def get_hyper_index(
+        self, index: int = None, page_size: int = 10
+    ) -> Dict[str, Any]:
         """
-        Silinmələrə qarşı dözümlü şəkildə indeks əsaslı 
+        Silinmələrə qarşı dözümlü şəkildə indeks əsaslı
         səhifələmə həyata keçirir.
         """
         indexed_data = self.indexed_dataset()
@@ -54,7 +56,10 @@ class Server:
                 data.append(indexed_data[current_index])
             current_index += 1
 
-        next_index = current_index if current_index < len(indexed_data) else None
+        if current_index < len(indexed_data):
+            next_index = current_index
+        else:
+            next_index = None
 
         return {
             "index": index,
