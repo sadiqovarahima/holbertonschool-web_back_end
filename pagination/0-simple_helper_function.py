@@ -6,10 +6,7 @@ from typing import Tuple
 
 
 def index_range(page: int, page_size: int) -> Tuple[int, int]:
-    """
-    Səhifə nömrəsi və ölçüsünə əsasən başlanğıc və 
-    son indeksləri qaytaran funksiya.
-    """
+    """funksiya"""
     start_index = (page - 1) * page_size
     end_index = page * page_size
     
