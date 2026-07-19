@@ -32,13 +32,12 @@ class Server:
         """
         if self.__indexed_dataset is None:
             dataset = self.dataset()
-            # truncation_status = [False] * len(dataset)
             self.__indexed_dataset = {
                 i: dataset[i] for i in range(len(dataset))
             }
         return self.__indexed_dataset
 
-    def get_page_by_index(self, index: int = None, page_size: int = 10) -> Dict[str, Any]:
+    def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict[str, Any]:
         """
         Silinmələrə qarşı dözümlü şəkildə indeks əsaslı 
         səhifələmə həyata keçirir.
@@ -49,10 +48,12 @@ class Server:
 
         data = []
         current_index = index
+
         while len(data) < page_size and current_index < len(indexed_data):
             if current_index in indexed_data:
                 data.append(indexed_data[current_index])
             current_index += 1
+
         next_index = current_index if current_index < len(indexed_data) else None
 
         return {
